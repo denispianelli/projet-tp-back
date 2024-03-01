@@ -1,0 +1,72 @@
+@endpoint=http://localhost:{{$dotenv PORT}}/v1/api
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJkZW5pcyIsImlzX3ZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3MDkwNDY5MDMsImV4cCI6MTcwOTA4MjkwM30.LQ_qKsMjPX0LhETSXYYG_CEa1LJn2IHGPQHzH3uol8Y
+
+### INSCRIPTION    
+POST {{endpoint}}/user/signup 
+Content-Type: application/json
+ 
+{
+	"username": "denis",
+	"email": "denis.pianelli@gmail.com",
+	"password": "qwertyui"
+}
+
+### CONNEXION
+POST {{endpoint}}/user/signin
+Content-Type: application/json
+
+{
+	"username": "denis",
+	"password": "qwertyui"
+
+} 
+
+### RECUPERATION DE L'UTILISATEUR 
+GET {{endpoint}}/user/
+Authorization: {{token}}
+
+### MISE A JOUR DES DONNEES UTILISATEUR  
+PATCH {{endpoint}}/user/
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"coins": 200
+} 
+
+### DEMANDE DE REINITILIATION DU MOT DE PASSE 
+POST {{endpoint}}/user/requestreset
+Content-Type: application/json
+
+{
+	"email": "user999@test.com"
+
+} 
+
+### REINITILIATION DU MOT DE PASSE 
+PATCH {{endpoint}}/user/resetpassword
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+	"newPassword": "totototo",
+	"newPasswordConfirm": "totototo"
+
+} 
+
+### CHARACTER
+GET {{endpoint}}/weapon
+
+### GET ALL UNLOCKED CHARACTERS
+GET {{endpoint}}/user/unlocked_character
+Authorization: {{token}}  
+
+### POST UNLOCKED CHARACTER
+POST {{endpoint}}/user/unlocked_character
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"userId": 1,
+	"characterId": 3
+} 
