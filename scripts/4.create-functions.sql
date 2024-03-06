@@ -14,7 +14,7 @@ CREATE OR REPLACE FUNCTION create_user(u json) RETURNS "user" AS $$
 	RETURNING *;
 $$ LANGUAGE sql SECURITY DEFINER;
 
-CREATE OR REPLACE FUNCTION check_user_exists(u json) 
+CREATE OR REPLACE FUNCTION check_user_exists_by_username(u json) 
 RETURNS json 
 AS $$
 DECLARE

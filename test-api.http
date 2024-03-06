@@ -1,7 +1,7 @@
 @endpoint=http://localhost:{{$dotenv PORT}}/v1/api
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJkZW5pcyIsImlzX3ZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3MDkwNDY5MDMsImV4cCI6MTcwOTA4MjkwM30.LQ_qKsMjPX0LhETSXYYG_CEa1LJn2IHGPQHzH3uol8Y
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJkZW5pcyIsImNvaW5zIjowLCJpc192ZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNzA5NTAyNzA1LCJleHAiOjE3MDk1Mzg3MDV9.u10ZyLpEaF9-VWjjhH9VysrUKD0dkFhmb07JNK2zNWA
 
-### INSCRIPTION    
+### INSCRIPTION        
 POST {{endpoint}}/user/signup 
 Content-Type: application/json
  
@@ -10,7 +10,7 @@ Content-Type: application/json
 	"email": "denis.pianelli@gmail.com",
 	"password": "qwertyui"
 }
-
+  
 ### CONNEXION
 POST {{endpoint}}/user/signin
 Content-Type: application/json
@@ -31,26 +31,28 @@ Authorization: {{token}}
 Content-Type: application/json
 
 {
-	"coins": 200
+	"password": "qwertyui",
+	"newPassword": "totototo",
+	"newPasswordConfirm": "totoo"	
 } 
-
+ 
 ### DEMANDE DE REINITILIATION DU MOT DE PASSE 
-POST {{endpoint}}/user/requestreset
+POST {{endpoint}}/account/reset/password
 Content-Type: application/json
 
 {
-	"email": "user999@test.com"
+	"email": "denis.pianelli@gmail.com"
 
 } 
 
 ### REINITILIATION DU MOT DE PASSE 
-PATCH {{endpoint}}/user/resetpassword
+PATCH {{endpoint}}/account/reset/password
 Content-Type: application/json
 Authorization: {{token}}
 
 {
-	"newPassword": "totototo",
-	"newPasswordConfirm": "totototo"
+	"newPassword": "qwertyui",
+	"newPasswordConfirm": "qwertyui"
 
 } 
 

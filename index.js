@@ -3,8 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import debug from 'debug';
 import router from './app/routers/index.router.js';
-import notFound from './app/errors/not-found.error.js';
-import handleError from './app/helpers/error.handler.js';
+import handleError from './app/services/error-handler.service.js';
 
 const app = express();
 
@@ -20,7 +19,6 @@ app.use(express.json());
 
 app.use('/v1/api', router);
 
-app.use(notFound);
 app.use(handleError);
 
 const { PORT } = process.env;

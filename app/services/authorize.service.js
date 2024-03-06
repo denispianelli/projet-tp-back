@@ -8,7 +8,7 @@ export async function isMember(req, _res, next) {
   const { result, error } = jwtService.verifyToken(token);
 
   if (result) {
-    const user = await userDatamapper.getUser(result.id);
+    const user = await userDatamapper.findUserById(result.id);
 
     if (user.role === 'member' || user.role === 'admin') {
       req.result = user;
@@ -32,7 +32,7 @@ export async function IsAdmin(req, _res, next) {
   const { result, error } = jwtService.verifyToken(token);
 
   if (result) {
-    const user = await userDatamapper.getUser(result.id);
+    const user = await userDatamapper.findUserById(result.id);
     if (user.role === 'admin') {
       req.result = user;
       next();
