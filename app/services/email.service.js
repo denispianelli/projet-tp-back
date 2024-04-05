@@ -36,7 +36,8 @@ async function sendEmail({
 
 async function sendVerificationEmail(user) {
   const verificationToken = jwtService.generateToken({ id: user.id, username: user.username });
-  const verificationUrl = `${process.env.BASE_URL}${process.env.PORT}/v1/api/account/email/verifyemail?token=${verificationToken}`;
+  // const verificationUrl = `${process.env.BASE_URL}${process.env.PORT}/v1/api/account/email/verifyemail?token=${verificationToken}`;
+  const verificationUrl = `${process.env.ORIGIN_URL}/account/email-verified/verifyemail?token=${verificationToken}`;
 
   await sendEmail({
     to: user.email,
@@ -46,7 +47,7 @@ async function sendVerificationEmail(user) {
 }
 
 async function sendResetPasswordEmail(user, req) {
-  const resetToken = jwtService.generateToken({ id: user.id });
+  const resetToken = jwtService.generateToken({ id: user.id, email: user.email });
   const resetUrl = `${process.env.ORIGIN_URL}/account/reset/password/resetpassword?token=${resetToken}`;
 
   await sendEmail({

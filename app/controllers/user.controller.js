@@ -1,10 +1,11 @@
 import bcrypt from 'bcrypt';
-import { userDatamapper } from '../datamappers/index.datamapper.js';
 import jwtService from '../services/jwt.service.js';
 import APIError from '../services/APIError.service.js';
 import { sendVerificationEmail } from '../services/email.service.js';
+import User from '../models/User.js';
 
 export default {
+  // CREATE
   async signup(req, res) {
     const { username, email, password } = req.body;
 
@@ -12,8 +13,9 @@ export default {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Créer l'utilisateur dans la base de données
-    const newUser = { email, password: hashedPassword, username };
-    const user = await userDatamapper.createUser(newUser);
+    const data = { email, password: hashedPassword, username };
+
+    const user = await User.create(data);
 
     sendVerificationEmail(user);
 
@@ -27,13 +29,68 @@ export default {
     });
   },
 
+  // READ
+  async getUser(req, res) {
+    const authHeader = req.get('Authorization');
+    const token = authHeader.split(' ')[1];
+
+    const verifiedUser = jwtService.verifyToken(token);
+
+    const { result, error } = verifiedUser;
+
+    if (result) {
+      const userFound = await User.findById(result.id);
+      res.json(userFound);
+    } else {
+      throw new APIError(error, 401);
+    }
+  },
+
+  // UPDATE
+  async updateUserInfos(req, res) {
+    // Recuperation de l'utilisateur
+    let user = req.result;
+    const userId = user.id;
+    const userData = req.body;
+    const { password, newPassword, passwordConfirmation } = userData;
+
+    if (password) {
+      const isPasswordAMatch = await bcrypt.compare(password, user.password);
+      const isPasswordConfirmed = newPassword === passwordConfirmation;
+
+      if (!isPasswordAMatch) {
+        throw new APIError('Mot de passe incorrect.', 401);
+      } else if (!isPasswordConfirmed) {
+        throw new APIError('Confirmation de mot de passe echouée.', 400);
+      }
+
+      userData.password = await bcrypt.hash(newPassword, 10);
+    }
+
+    user = { ...user, ...userData };
+    delete user.id;
+
+    const result = await User.update(userId, user);
+
+    res.json(result);
+  },
+
+  // DELETE
+  async deleteUser(req, res) {
+    const user = req.result;
+    const userId = user.id;
+
+    const result = await User.delete(userId);
+
+    res.json(result);
+  },
+
   async signin(req, res) {
     // Récupération des données de connexion depuis le corps de la requête
     const login = req.body;
 
     // Vérification si l'utilisateur existe dans la base de données
-    const result = await userDatamapper.findUserByUsername(login);
-    const user = result.check_user_exists_by_username;
+    const user = await User.findByUsername(login.username);
 
     if (!user) {
       throw new APIError('Les identifiants ne sont pas corrects', 401);
@@ -57,7 +114,7 @@ export default {
     }
 
     const {
-      email, role, password, ...userSafeData
+      email, password, ...userSafeData
     } = user;
 
     // Génération d'un jeton d'authentification pour l'utilisateur
@@ -69,63 +126,21 @@ export default {
     return res.json(userSafeData);
   },
 
-  async getUser(req, res) {
-    const authHeader = req.get('Authorization');
-    const token = authHeader.split(' ')[1];
-
-    const verifiedUser = jwtService.verifyToken(token);
-
-    if (verifiedUser.result) {
-      const user = verifiedUser.result;
-      const result = await userDatamapper.findUserById(user.id);
-      res.json(result);
-    } else {
-      throw new APIError('Token invalide ou expiré.', 401);
-    }
-  },
-
-  async updateUserInfos(req, res) {
-    // Recuperation de l'utilisateur
-    let user = req.result;
-    const userData = req.body;
-    const { password, newPassword, passwordConfirmation } = userData;
-
-    if (password) {
-      const isPasswordAMatch = await bcrypt.compare(password, user.password);
-      const isPasswordConfirmed = newPassword === passwordConfirmation;
-
-      if (!isPasswordAMatch) {
-        throw new APIError('Mot de passe incorrect.', 401);
-      } else if (!isPasswordConfirmed) {
-        throw new APIError('Confirmation de mot de passe echouée.', 400);
-      }
-
-      userData.password = await bcrypt.hash(newPassword, 10);
-    }
-
-    user = { ...user, ...userData };
-
-    const result = await userDatamapper.updateUser(user);
-
-    res.json(result);
-  },
-
   async getAllUnlockedCharacters(req, res) {
     const user = req.result;
 
-    const result = await userDatamapper.getAllUnlockedCharacters(user.id);
+    const result = await User.getAllUnlockedCharacters(user.id);
 
     res.json(result);
   },
 
-  async postUnlockCharacter(req, res) {
-    const { userId } = req.body;
-    const { characterId } = req.body;
+  async unlockCharacter(req, res) {
+    const user = req.result;
+    const userId = user.id;
+    let { characterId } = req.params;
+    characterId = parseInt(characterId, 10);
 
-    const result = await userDatamapper.postUnlockCharacter(
-      userId,
-      characterId,
-    );
+    const result = await User.unlockCharacter(userId, characterId);
 
     res.json(result);
   },

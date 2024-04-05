@@ -17,8 +17,5 @@ psql -f 2.create-domains.sql
 # Exécution du script de création des tables
 psql -f 3.create-tables.sql 
 
-# Exécution du script de création des fonctions sql
-psql -f 4.create-functions.sql 
-
 # Exécution du script de population des tables
-psql -f 5.populate-tables.sql
+psql -f 4.populate-tables.sql

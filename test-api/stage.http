@@ -1,0 +1,30 @@
+@endpoint=http://localhost:{{$dotenv PORT}}/v1/api
+
+### CREATE STAGE
+POST {{endpoint}}/stages
+Content-Type: application/json
+
+{
+		"name": "John Doe1",
+		"description": "A powerful character1",
+		"unlock_requirement": "Complete level 11"
+}
+
+### GET ALL STAGES
+GET {{endpoint}}/stages
+ 
+### GET STAGE BY ID
+GET {{endpoint}}/stages/1
+
+### UPDATE STAGE
+PATCH {{endpoint}}/stages/1
+Content-Type: application/json
+
+{
+		"name": "John Doe",
+		"description": "A powerful character",
+		"unlock_requirement": "Complete level 10"
+}
+
+### DELETE STAGE
+DELETE {{endpoint}}/stages/1

@@ -1,0 +1,42 @@
+@endpoint=http://localhost:{{$dotenv PORT}}/v1/api
+
+### CREATE WEAPON
+POST {{endpoint}}/weapons
+Content-Type: application/json
+
+{
+    "name": "Épée de Feu",
+    "description": "Une puissante épée imprégnée de magie éclair. Frappe les ennemis avec une force tonitruante.",
+    "evolved": "false",
+    "max_level": 8,
+    "rarity": 100,
+    "unlock_requirement": "Débloqué par defaut",
+    "base_damage": 10,
+    "cooldown": "1.35",
+    "knockback": 1
+}
+
+### GET ALL WEAPONS
+GET {{endpoint}}/weapons
+ 
+### GET WEAPON BY ID
+GET {{endpoint}}/weapons/1
+
+### UPDATE WEAPON
+PATCH {{endpoint}}/weapons/4
+Content-Type: application/json
+
+{
+    "name": "Épée de Feu",
+    "description": "Une puissante épée imprégnée de magie éclair. Frappe les ennemis avec une force tonitruante.",
+    "evolved": "true",
+    "max_level": 8,
+    "rarity": 100,
+    "unlock_requirement": "Débloqué par defaut",
+    "base_damage": 10,
+    "cooldown": "1.35",
+    "knockback": 1
+}
+
+### DELETE WEAPON
+DELETE {{endpoint}}/weapons/1

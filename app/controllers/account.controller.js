@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
-import userDatamapper from '../datamappers/user.datamapper.js';
 import { sendResetPasswordEmail } from '../services/email.service.js';
 import jwtService from '../services/jwt.service.js';
 import APIError from '../services/APIError.service.js';
+import User from '../models/User.js';
 
 export default {
   async verifyEmail(req, res) {
@@ -14,15 +14,16 @@ export default {
     }
 
     if (result) {
-      const user = await userDatamapper.findUserById(result.id);
+      const user = await User.findById(result.id);
+      const userId = user.id;
+      delete user.id;
+
       if (user.is_verified) {
-        return res
-          .status(400)
-          .json({ message: "L'utilisateur est déjà vérifié." });
+        throw new APIError('L\'utilisateur est déjà vérifié.', 400);
       }
 
       user.is_verified = true;
-      const verifiedUser = await userDatamapper.updateUser(user);
+      const verifiedUser = await User.update(userId, user);
 
       // Vérification de la réussite de l'opération de mise à jour
       if (!verifiedUser) {
@@ -39,13 +40,17 @@ export default {
     // Récupération de l'email depuis le corps de la requête
     const userData = req.body;
     // Vérification si l'utilisateur existe dans la base de données
-    const user = await userDatamapper.findUserByEmail(userData);
+    const user = await User.findByUsername(userData.username);
 
     if (!user) {
-      throw new APIError(
-        'La demande de réinitialisation du mot de passe a été traitée avec succès. Si un compte est associé à cette adresse e-mail, un e-mail de réinitialisation du mot de passe sera envoyé.',
-        200,
-      );
+      throw new APIError('Utilisateur non trouvé.', 404);
+    }
+
+    if (userData.username !== user.username || userData.email !== user.email) {
+      return res.status(200).json({
+        message:
+          'La demande de réinitialisation du mot de passe a été traitée avec succès. Si un compte est associé à cette adresse e-mail, un e-mail de réinitialisation du mot de passe sera envoyé.',
+      });
     }
 
     sendResetPasswordEmail(user, req);
@@ -67,9 +72,15 @@ export default {
       throw new APIError(error, 401);
     }
 
-    const { newPassword } = req.body;
+    const { newPassword, passwordConfirmation } = req.body;
 
-    let user = await userDatamapper.findUserById(result.id);
+    if (newPassword !== passwordConfirmation) {
+      throw new APIError('Les mots de passe ne correspondent pas.', 400);
+    }
+
+    let user = await User.findById(result.id);
+    const userId = user.id;
+    delete user.id;
 
     if (!user) {
       throw new APIError('Utilisateur non trouvé.', 404);
@@ -81,7 +92,7 @@ export default {
     user = { ...user, password: hashedPassword };
 
     // Mise à jour du mot de passe dans la base de données
-    const response = await userDatamapper.updateUser(user);
+    const response = await User.update(userId, user);
 
     if (!response) {
       throw new APIError('La mise à jour du mot de passe a échoué.', 500);
@@ -90,5 +101,61 @@ export default {
     return res.status(200).json({
       message: 'Le mot de passe a été réinitialisé avec succès.',
     });
+  },
+
+  async updateEmail(req, res) {
+    const user = req.result;
+    const userId = user.id;
+    delete user.id;
+
+    const { email } = req.body;
+    const { password } = req.body;
+
+    // Vérification du mot de passe
+    const isPasswordAMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordAMatch) {
+      throw new APIError('Mot de passe incorrect.', 401);
+    }
+
+    user.email = email;
+
+    const response = await User.update(userId, user);
+
+    if (!response) {
+      throw new APIError('La mise à jour de l’email a échoué.', 500);
+    }
+
+    return res.status(200).json(response);
+  },
+
+  async updatePassword(req, res) {
+    const user = req.result;
+    const userId = user.id;
+    delete user.id;
+
+    const { oldPassword, newPassword, passwordConfirmation } = req.body;
+
+    const isPasswordAMatch = await bcrypt.compare(oldPassword, user.password);
+    const isPasswordConfirmed = newPassword === passwordConfirmation;
+
+    if (!isPasswordAMatch) {
+      throw new APIError('Mot de passe incorrect.', 401);
+    } else if (!isPasswordConfirmed) {
+      throw new APIError('Confirmation de mot de passe échouée.', 400);
+    }
+
+    // Hasher le nouveau mot de passe
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    user.password = hashedPassword;
+
+    const response = await User.update(userId, user);
+
+    if (!response) {
+      throw new APIError('La mise à jour du mot de passe a échoué.', 500);
+    }
+
+    return res.status(200).json(response);
   },
 };

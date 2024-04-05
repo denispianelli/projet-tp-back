@@ -17,7 +17,7 @@ const logger = debug('app:error');
 // eslint-disable-next-line no-unused-vars
 export default function handleError(err, _req, res, _next) {
   const logsPath = 'logs/error.log';
-  logger(err.status || err.code, err.stack);
+  logger(err.status || err.code, err.stack, err.constraint);
 
   // Enregistre le message d'erreur dans le fichier de logs
   const logMessage = `${new Date().toISOString()} | ${err.status || err.code} | ${err.message}\n`;
@@ -38,12 +38,14 @@ export default function handleError(err, _req, res, _next) {
         status: 'error',
         error: err.message,
         stack: err.stack,
+        constraint: err.constraint,
       });
     }
     // Retourne une réponse JSON avec les détails de l'erreur en dehors du mode développement
     return res.status(statusCode).json({
       status: 'error',
       error: err.message,
+      constraint: err.constraint,
     });
   }
 
@@ -53,6 +55,7 @@ export default function handleError(err, _req, res, _next) {
       status: 'error',
       error: err.message,
       stack: err.stack,
+      constraint: err.constraint,
     });
   }
 
@@ -61,5 +64,6 @@ export default function handleError(err, _req, res, _next) {
   return res.status(500).json({
     status: 'error',
     error: err.message,
+    constraint: err.constraint,
   });
 }

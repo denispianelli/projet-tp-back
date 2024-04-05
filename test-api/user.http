@@ -1,0 +1,50 @@
+@endpoint=http://localhost:{{$dotenv PORT}}/v1/api
+
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJkZW5pcyIsImNvaW5zIjowLCJpc192ZXJpZmllZCI6dHJ1ZSwicm9sZSI6Im1lbWJlciIsImlhdCI6MTcxMjIyOTM2NywiZXhwIjoxNzEyMjY1MzY3fQ.0RlkNTFnk_lBtUwOQuJhF5usBVz9cWfVYjQkwpgOX-U
+
+### CREATE      
+POST {{endpoint}}/user/signup 
+Content-Type: application/json
+
+{
+	"username": "Caroline",
+	"email": "ahe@we.za",
+	"password": "5pbhBHTm6xqt5JJIxk"
+}
+
+### READ  
+GET {{endpoint}}/user/
+Authorization: {{token}}
+
+
+### UPDATE 
+PATCH {{endpoint}}/user/
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+	"is_verified": "false"
+} 
+
+### DELETE 
+DELETE {{endpoint}}/user/
+Authorization: {{token}}
+
+### CONNEXION 
+POST {{endpoint}}/user/signin
+Content-Type: application/json
+
+{
+	"username": "denis",
+	"password": "qwertyui"
+
+} 
+
+### GET ALL UNLOCKED CHARACTERS
+GET {{endpoint}}/user/characters
+Authorization: {{token}}  
+
+### POST UNLOCKED CHARACTER
+POST {{endpoint}}/user/characters/3
+Authorization: {{token}}
+Content-Type: application/json

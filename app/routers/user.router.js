@@ -9,15 +9,22 @@ import validate from '../services/validations/validate.js';
 
 const router = Router();
 
-router.get('/', controllerWrapper(userController.getUser));
-router.get('/unlocked_character', isMember, controllerWrapper(userController.getAllUnlockedCharacters));
-
-router.get('/verifyemail', controllerWrapper(userController.verifyEmail));
-
+// CREATE
 router.post('/signup', validate('body', signupSchema), controllerWrapper(userController.signup));
-router.post('/signin', validate('body', signinSchema), controllerWrapper(userController.signin));
-router.post('/unlocked_character', isMember, controllerWrapper(userController.postUnlockCharacter));
 
+// READ
+router.get('/', isMember, controllerWrapper(userController.getUser));
+
+// UPDATE
 router.patch('/', isMember, controllerWrapper(userController.updateUserInfos));
+
+// DELETE
+router.delete('/', isMember, controllerWrapper(userController.deleteUser));
+
+router.post('/signin', controllerWrapper(userController.signin));
+
+router.get('/characters', isMember, controllerWrapper(userController.getAllUnlockedCharacters));
+
+router.post('/characters/:characterId', isMember, controllerWrapper(userController.unlockCharacter));
 
 export default router;

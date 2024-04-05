@@ -1,0 +1,36 @@
+@endpoint=http://localhost:{{$dotenv PORT}}/v1/api
+
+### CREATE ENEMY
+POST {{endpoint}}/enemies
+Content-Type: application/json
+
+{
+  "name": "Troll",
+  "health": 110,
+  "power": 12,
+  "speed": 6,
+  "knockback": 2,
+  "xp": 55
+}
+
+### GET ALL ENEMIES
+GET {{endpoint}}/enemies
+ 
+### GET ENEMY BY ID
+GET {{endpoint}}/enemies/1
+
+### UPDATE ENEMY
+PATCH {{endpoint}}/enemies/9
+Content-Type: application/json
+
+{
+  "name": "Lion",
+  "health": 110,
+  "power": 12,
+  "speed": 6,
+  "knockback": 2,
+  "xp": 55
+}
+
+### DELETE ENEMY
+DELETE {{endpoint}}/enemies/1

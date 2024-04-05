@@ -1,13 +1,18 @@
 import { sendEmail } from '../services/email.service.js';
 
-export default async function sendMailContact(req, res) {
-  const mailData = req.body;
+export default {
+  async sendMailContact(req, res) {
+    const mailData = req.body;
 
-  const result = await sendEmail({
-    to: 'osurvivors2024@gmail.com',
-    from: mailData.email,
-    html: `<p>${mailData.message}</p>`,
-  });
+    const result = await sendEmail({
+      to: 'denis.pianelli@gmail.com',
+      subject: mailData.object,
+      html: `
+      <p>${mailData.message}</p>
+      <p>Envoyé par: ${mailData.username}</p>
+      <p>Envoyé par: ${mailData.email}</p>`,
+    });
 
-  res.json(result);
-}
+    res.json(result);
+  },
+};

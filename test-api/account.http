@@ -1,0 +1,51 @@
+@endpoint=http://localhost:{{$dotenv PORT}}/v1/api
+
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJkZW5pcyIsImNvaW5zIjowLCJpc192ZXJpZmllZCI6dHJ1ZSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzExMTEzMzQyLCJleHAiOjE3MTExNDkzNDJ9.CFvD_0BfmuX8Z_gzklPN2QbKXXDwRGapfelvM5Oj-Ig
+
+### DEMANDE DE REINITILIATION DU MOT DE PASSE  
+POST {{endpoint}}/account/reset/password
+Content-Type: application/json
+
+{
+	"username": "deninis",
+	"email": "denis.pianelli@gmail.com"
+
+} 
+
+### REINITILIATION DU MOT DE PASSE 
+PATCH {{endpoint}}/account/reset/password
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+	"newPassword": "qwertyui",
+	"newPasswordConfirm": "qwertyui"
+
+} 
+
+### VERIFICATION DE L'EMAIL
+GET {{endpoint}}/account/email/verifyemail?token={{token}}
+Content-Type: application/json
+
+### MISE A JOUR DE L'EMAIL
+PATCH {{endpoint}}/account/email
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+	"password": "qwertyui",
+	"email": "qwertyui"
+
+} 
+
+### MISE A JOUR DU MOT DE PASSE
+PATCH {{endpoint}}/account/password
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+	"oldPassword": "qwertyui",
+	"newPassword": "qwertyui",
+	"passwordConfirmation": "qwertyui"
+
+} 

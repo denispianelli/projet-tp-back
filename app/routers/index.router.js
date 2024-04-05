@@ -1,22 +1,20 @@
 import { Router } from 'express';
 import userRouter from './user.router.js';
 import characterRouter from './character.router.js';
-import getController from '../controllers/get.controller.js';
+import stageRouter from './stage.router.js';
 import accountRouter from './account.router.js';
-import contactController from '../controllers/contact.controller.js';
-import controllerWrapper from '../services/controller-wrapper.service.js';
-import {
-  contactSchema,
-} from '../services/validations/schemas.js';
-import validate from '../services/validations/validate.js';
+import weaponRouter from './weapon.router.js';
+import enemyRouter from './enemy.router.js';
+import contactRouter from './contact.router.js';
 
 const router = Router();
 
-router.post('/contact', validate('body', contactSchema), controllerWrapper(contactController.sendMailContact));
-
 router.use('/user', userRouter);
 router.use('/account', accountRouter);
-router.use('/character', characterRouter);
-router.get('/:tableName', controllerWrapper(getController.getAll));
+router.use('/characters', characterRouter);
+router.use('/stages', stageRouter);
+router.use('/weapons', weaponRouter);
+router.use('/enemies', enemyRouter);
+router.use('/contact', contactRouter);
 
 export default router;

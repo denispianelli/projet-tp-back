@@ -1,0 +1,36 @@
+@endpoint=http://localhost:{{$dotenv PORT}}/v1/api
+
+### CREATE CHARACTER
+POST {{endpoint}}/characters
+Content-Type: application/json
+
+{
+		"name": "John Doe",
+		"fullname": "John Doe",
+		"description": "A powerful character",
+		"cost": 100,
+		"unlock_requirement": "Complete level 10",
+		"weapon_id": 1
+}
+
+### GET ALL CHARACTERS
+GET {{endpoint}}/characters
+
+### GET CHARACTER BY ID
+GET {{endpoint}}/characters/5
+
+### UPDATE CHARACTER
+PATCH {{endpoint}}/characters/5
+Content-Type: application/json
+
+{
+		"name": "Jane",
+		"fullname": "Jane Doe",
+		"description": "A powerful character",
+		"cost": 100,
+		"unlock_requirement": "Complete level 1",
+		"weapon_id": 2
+}
+
+### DELETE CHARACTER
+DELETE {{endpoint}}/characters/7

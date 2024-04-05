@@ -170,18 +170,18 @@ INSERT INTO
 	public.stage (name, description, unlock_requirement)
 VALUES
 	(
-		'Forêt Enchantée',
-		'Explorez la forêt enchantée et affrontez ses gardiens mystiques.',
-		'Atteindre le niveau 10'
+		'Catacombes',
+		'Découvrez les secrets des catacombes et affrontez ses hordes de squelettes.',
+		'Débloqué par defaut'
 	),
 	(
-		'Montagnes Gelées',
-		'Parcourez les sommets enneigés et affrontez les créatures glacées.',
+		'Désert',
+		'Explorez les mystères du désert et affrontez ses redoutables hommes de sable.',
 		'Vaincre le Dragon de Glace'
 	),
 	(
-		'Citadelle Sombre',
-		'Pénétrez dans la citadelle sombre et détruisez les forces du mal.',
+		'Prairie',
+		'Plongez au cœur de la prairie et défiez ses protecteurs implacables.',
 		'Résoudre l''Énigme du Portail'
 	);
 

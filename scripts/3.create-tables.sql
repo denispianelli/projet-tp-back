@@ -117,8 +117,9 @@ CREATE TABLE
 
 CREATE TABLE
 	IF NOT EXISTS public.unlocked_character (
-		user_id int REFERENCES public.user (id) NOT NULL,
-		character_id int REFERENCES public.character (id) NOT NULL
+		user_id int NOT NULL REFERENCES public.user (id) ON DELETE CASCADE,
+		character_id int NOT NULL REFERENCES public.character (id) ON DELETE CASCADE,
+		UNIQUE (user_id, character_id)
 	);
 
 CREATE TABLE
