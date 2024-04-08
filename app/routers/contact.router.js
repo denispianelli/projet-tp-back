@@ -4,6 +4,10 @@ import controllerWrapper from '../services/controller-wrapper.service.js';
 import { contactSchema } from '../services/validations/schemas.js';
 import validate from '../services/validations/validate.js';
 
+/**
+ * @type {Router}
+ * @description Le routeur pour les routes de contact.
+ */
 const router = Router();
 
 router.post(

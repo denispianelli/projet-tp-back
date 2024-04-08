@@ -5,6 +5,7 @@ import APIError from '../services/APIError.service.js';
 import User from '../models/User.js';
 
 export default {
+  // Vérifie l'email de l'utilisateur
   async verifyEmail(req, res) {
     const { token } = req.query;
     const { result, error } = jwtService.verifyToken(token);
@@ -19,13 +20,12 @@ export default {
       delete user.id;
 
       if (user.is_verified) {
-        throw new APIError('L\'utilisateur est déjà vérifié.', 400);
+        throw new APIError("L'utilisateur est déjà vérifié.", 400);
       }
 
       user.is_verified = true;
       const verifiedUser = await User.update(userId, user);
 
-      // Vérification de la réussite de l'opération de mise à jour
       if (!verifiedUser) {
         throw new Error('La mise à jour de l’utilisateur a échoué.');
       }
@@ -36,6 +36,7 @@ export default {
     });
   },
 
+  // Envoie une demande de réinitialisation du mot de passe
   async requestResetPassword(req, res) {
     // Récupération de l'email depuis le corps de la requête
     const userData = req.body;
@@ -61,6 +62,7 @@ export default {
     });
   },
 
+  // Réinitialise le mot de passe de l'utilisateur
   async resetPassword(req, res) {
     const authHeader = req.get('Authorization');
     const token = authHeader.split(' ')[1];
@@ -103,6 +105,7 @@ export default {
     });
   },
 
+  // Met à jour l'email de l'utilisateur
   async updateEmail(req, res) {
     const user = req.result;
     const userId = user.id;
@@ -129,6 +132,7 @@ export default {
     return res.status(200).json(response);
   },
 
+  // Met à jour le mot de passe de l'utilisateur
   async updatePassword(req, res) {
     const user = req.result;
     const userId = user.id;

@@ -28,7 +28,8 @@ export default {
           result: null,
           error: 'Session expirée, veuillez-vous authentifier à nouveau',
         };
-      } if (error.name === 'JsonWebTokenError') {
+      }
+      if (error.name === 'JsonWebTokenError') {
         return { result: null, error: 'Authentification échouée' };
       }
       return { result: null, error: error.message };

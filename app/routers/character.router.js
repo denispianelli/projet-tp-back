@@ -2,6 +2,10 @@ import { Router } from 'express';
 import controllerWrapper from '../services/controller-wrapper.service.js';
 import characterController from '../controllers/character.controller.js';
 
+/**
+ * @type {Router}
+ * @description Le routeur pour les routes liées aux personnages.
+ */
 const router = Router();
 
 // CREATE

@@ -18,7 +18,7 @@ async function sendEmail({
   });
 
   const mailOptions = {
-    from: 'osurvivors2024@gmail.com',
+    from: 'osurvivors.team@gmail.com',
     to,
     subject,
     text,
@@ -36,7 +36,6 @@ async function sendEmail({
 
 async function sendVerificationEmail(user) {
   const verificationToken = jwtService.generateToken({ id: user.id, username: user.username });
-  // const verificationUrl = `${process.env.BASE_URL}${process.env.PORT}/v1/api/account/email/verifyemail?token=${verificationToken}`;
   const verificationUrl = `${process.env.ORIGIN_URL}/account/email-verified/verifyemail?token=${verificationToken}`;
 
   await sendEmail({

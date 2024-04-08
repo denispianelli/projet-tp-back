@@ -17,7 +17,7 @@ Content-Type: application/json
 GET {{endpoint}}/characters
 
 ### GET CHARACTER BY ID
-GET {{endpoint}}/characters/5
+GET {{endpoint}}/characters/2
 
 ### UPDATE CHARACTER
 PATCH {{endpoint}}/characters/5

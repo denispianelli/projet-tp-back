@@ -99,12 +99,10 @@ export default {
     if (!user.is_verified) {
       sendVerificationEmail(user);
 
-      return res
-        .status(400)
-        .json({
-          error:
-            'Veuillez vérifier votre adresse e-mail avant de vous connecter. Nous venons de vous envoyer un nouvel e-mail de vérification.',
-        });
+      return res.status(400).json({
+        error:
+          'Veuillez vérifier votre adresse e-mail avant de vous connecter. Nous venons de vous envoyer un nouvel e-mail de vérification.',
+      });
     }
 
     const passwordMatch = await bcrypt.compare(login.password, user.password);
@@ -113,9 +111,7 @@ export default {
       throw new APIError('Les identifiants ne sont pas corrects', 401);
     }
 
-    const {
-      email, password, ...userSafeData
-    } = user;
+    const { email, password, ...userSafeData } = user;
 
     // Génération d'un jeton d'authentification pour l'utilisateur
     const token = jwtService.generateToken(userSafeData);

@@ -1,6 +1,6 @@
 @endpoint=http://localhost:{{$dotenv PORT}}/v1/api
 
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJkZW5pcyIsImNvaW5zIjowLCJpc192ZXJpZmllZCI6dHJ1ZSwicm9sZSI6Im1lbWJlciIsImlhdCI6MTcxMjIyOTM2NywiZXhwIjoxNzEyMjY1MzY3fQ.0RlkNTFnk_lBtUwOQuJhF5usBVz9cWfVYjQkwpgOX-U
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwidXNlcm5hbWUiOiJkZW5pcyIsImNvaW5zIjowLCJpc192ZXJpZmllZCI6dHJ1ZSwicm9sZSI6Im1lbWJlciIsImlhdCI6MTcxMjU5NjM5OCwiZXhwIjoxNzEyNjMyMzk4fQ.rp8u4cT8qsBRoIzavySo_ZrpSu4MD-s7VDM0oloqym8
 
 ### CREATE      
 POST {{endpoint}}/user/signup 

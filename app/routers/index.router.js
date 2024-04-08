@@ -7,6 +7,10 @@ import weaponRouter from './weapon.router.js';
 import enemyRouter from './enemy.router.js';
 import contactRouter from './contact.router.js';
 
+/**
+ * @type {Router}
+ * @description Le routeur pour les routes de l'index.
+ */
 const router = Router();
 
 router.use('/user', userRouter);

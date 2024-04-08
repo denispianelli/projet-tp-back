@@ -11,6 +11,13 @@ const app = express();
 
 const logger = debug('app:server');
 
+/**
+ * Options de configuration pour CORS.
+ * @typedef {Object} CorsOptions
+ * @property {string} origin - L'URL d'origine autorisée pour les requêtes CORS.
+ * @property {number} optionsSuccessStatus - Le code de statut HTTP à renvoyer
+ * pour les requêtes OPTIONS.
+ */
 const corsOptions = {
   origin: process.env.ORIGIN_URL,
   optionsSuccessStatus: 200,

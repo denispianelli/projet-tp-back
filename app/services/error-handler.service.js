@@ -20,7 +20,9 @@ export default function handleError(err, _req, res, _next) {
   logger(err.status || err.code, err.stack, err.constraint);
 
   // Enregistre le message d'erreur dans le fichier de logs
-  const logMessage = `${new Date().toISOString()} | ${err.status || err.code} | ${err.message}\n`;
+  const logMessage = `${new Date().toISOString()} | ${
+    err.status || err.code
+  } | ${err.message}\n`;
 
   fs.appendFile(logsPath, logMessage, (error) => {
     if (error) {

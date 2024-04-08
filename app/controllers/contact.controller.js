@@ -4,8 +4,8 @@ export default {
   async sendMailContact(req, res) {
     const mailData = req.body;
 
-    const result = await sendEmail({
-      to: 'denis.pianelli@gmail.com',
+    await sendEmail({
+      to: 'info.osurvivors@gmail.com',
       subject: mailData.object,
       html: `
       <p>${mailData.message}</p>
@@ -13,6 +13,6 @@ export default {
       <p>Envoyé par: ${mailData.email}</p>`,
     });
 
-    res.json(result);
+    res.json('Le message a bien été envoyé.');
   },
 };

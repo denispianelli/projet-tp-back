@@ -4,5 +4,8 @@ import contactController from './contact.controller.js';
 import accountController from './account.controller.js';
 
 export {
-  userController, characterController, contactController, accountController,
+  userController,
+  characterController,
+  contactController,
+  accountController,
 };

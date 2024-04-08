@@ -2,6 +2,10 @@ import { Router } from 'express';
 import controllerWrapper from '../services/controller-wrapper.service.js';
 import weaponController from '../controllers/weapon.controller.js';
 
+/**
+ * Router pour les armes.
+ * @type {Router}
+ */
 const router = Router();
 
 // CREATE

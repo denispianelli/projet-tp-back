@@ -2,6 +2,10 @@ import { Router } from 'express';
 import controllerWrapper from '../services/controller-wrapper.service.js';
 import enemyController from '../controllers/enemy.controller.js';
 
+/**
+ * Le routeur pour les ennemis.
+ * @type {Router}
+ */
 const router = Router();
 
 // CREATE
