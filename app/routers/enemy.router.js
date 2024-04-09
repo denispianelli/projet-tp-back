@@ -27,7 +27,7 @@ router.get(
 // READ ONE
 router.get(
   '/:id',
-  /*  #swagger.tags = ['Account']
+  /*  #swagger.tags = ['Enemy']
       #swagger.description = 'Endpoint pour récupérer un ennemi.' */
   controllerWrapper(enemyController.getEnemyById),
 );
@@ -35,7 +35,7 @@ router.get(
 // UPDATE
 router.patch(
   '/:id',
-  /*  #swagger.tags = ['Account']
+  /*  #swagger.tags = ['Enemy']
       #swagger.description = 'Endpoint pour mettre à jour un ennemi.' */
   controllerWrapper(enemyController.updateEnemy),
 );
@@ -43,7 +43,7 @@ router.patch(
 // DELETE
 router.delete(
   '/:id',
-  /*  #swagger.tags = ['Account']
+  /*  #swagger.tags = ['Enemy']
       #swagger.description = 'Endpoint pour supprimer un ennemi.' */
   controllerWrapper(enemyController.deleteEnemy),
 );

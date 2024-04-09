@@ -506,7 +506,7 @@
     "/enemies/{id}": {
       "get": {
         "tags": [
-          "Account"
+          "Enemy"
         ],
         "description": "Endpoint pour récupérer un ennemi.",
         "parameters": [
@@ -525,7 +525,7 @@
       },
       "patch": {
         "tags": [
-          "Account"
+          "Enemy"
         ],
         "description": "Endpoint pour mettre à jour un ennemi.",
         "parameters": [
@@ -544,7 +544,7 @@
       },
       "delete": {
         "tags": [
-          "Account"
+          "Enemy"
         ],
         "description": "Endpoint pour supprimer un ennemi.",
         "parameters": [
