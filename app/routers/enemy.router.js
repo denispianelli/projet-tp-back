@@ -9,18 +9,43 @@ import enemyController from '../controllers/enemy.controller.js';
 const router = Router();
 
 // CREATE
-router.post('/', controllerWrapper(enemyController.createEnemy));
+router.post(
+  '/',
+  /*  #swagger.tags = ['Enemy']
+      #swagger.description = 'Endpoint pour créer un ennemi.' */
+  controllerWrapper(enemyController.createEnemy),
+);
 
 // READ ALL
-router.get('/', controllerWrapper(enemyController.getAllEnemies));
+router.get(
+  '/',
+  /*  #swagger.tags = ['Enemy']
+      #swagger.description = 'Endpoint pour récupérer tous les ennemis.' */
+  controllerWrapper(enemyController.getAllEnemies),
+);
 
 // READ ONE
-router.get('/:id', controllerWrapper(enemyController.getEnemyById));
+router.get(
+  '/:id',
+  /*  #swagger.tags = ['Account']
+      #swagger.description = 'Endpoint pour récupérer un ennemi.' */
+  controllerWrapper(enemyController.getEnemyById),
+);
 
 // UPDATE
-router.patch('/:id', controllerWrapper(enemyController.updateEnemy));
+router.patch(
+  '/:id',
+  /*  #swagger.tags = ['Account']
+      #swagger.description = 'Endpoint pour mettre à jour un ennemi.' */
+  controllerWrapper(enemyController.updateEnemy),
+);
 
 // DELETE
-router.delete('/:id', controllerWrapper(enemyController.deleteEnemy));
+router.delete(
+  '/:id',
+  /*  #swagger.tags = ['Account']
+      #swagger.description = 'Endpoint pour supprimer un ennemi.' */
+  controllerWrapper(enemyController.deleteEnemy),
+);
 
 export default router;

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "swagger": "node ./swagger.js",
     "dev": "DEBUG=app:* nodemon index.js",
     "dev:windows": "set DEBUG=app:* && nodemon index.js",
     "start": "node index.js"
@@ -30,12 +31,14 @@
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.9",
     "pg": "^8.11.3",
-    "sanitize-html": "^2.13.0"
+    "sanitize-html": "^2.13.0",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.0.3",
+    "swagger-autogen": "^2.23.7"
   }
 }

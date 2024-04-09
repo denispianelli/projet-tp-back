@@ -12,28 +12,35 @@ import jwtService from './jwt.service.js';
  */
 export async function isMember(req, _res, next) {
   const authHeader = req.get('Authorization');
-  const token = authHeader.split(' ')[1];
+  console.log('isMember ~ authHeader:', authHeader);
 
-  const { result, error } = jwtService.verifyToken(token);
+  if (!authHeader) {
+    const err = new APIError("Vous n'êtes pas autorisé", 401);
+    next(err);
+  } else {
+    const token = authHeader.split(' ')[1];
 
-  if (result) {
-    const user = await User.findById(result.id);
+    const { result, error } = jwtService.verifyToken(token);
 
-    if (!user) {
-      const err = new APIError('Utilisateur non trouvé', 404);
-      next(err);
-    } else if (user.role === 'member' || user.role === 'admin') {
-      req.result = user;
-      next();
-    } else {
+    if (result) {
+      const user = await User.findById(result.id);
+
+      if (!user) {
+        const err = new APIError('Utilisateur non trouvé', 404);
+        next(err);
+      } else if (user.role === 'member' || user.role === 'admin') {
+        req.result = user;
+        next();
+      } else {
+        const err = new APIError("Vous n'êtes pas autorisé", 401);
+        next(err);
+      }
+    }
+
+    if (error) {
       const err = new APIError("Vous n'êtes pas autorisé", 401);
       next(err);
     }
-  }
-
-  if (error) {
-    const err = new APIError("Vous n'êtes pas autorisé", 401);
-    next(err);
   }
 }
 

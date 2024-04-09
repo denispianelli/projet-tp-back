@@ -2,10 +2,15 @@ import 'dotenv/config.js';
 import express from 'express';
 import cors from 'cors';
 import debug from 'debug';
+import { createRequire } from 'node:module';
+import swaggerUi from 'swagger-ui-express';
 import router from './app/routers/index.router.js';
 import notFound from './app/services/not-found.service.js';
 import handleError from './app/services/error-handler.service.js';
 import sanitizeData from './app/middlewares/sanitize.middleware.js';
+
+const require = createRequire(import.meta.url);
+const swaggerFile = require('./swagger-output.json');
 
 const app = express();
 
@@ -29,6 +34,7 @@ app.use(express.json());
 app.use(sanitizeData);
 
 app.use('/v1/api', router);
+app.use('/v1/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(notFound);
 app.use(handleError);

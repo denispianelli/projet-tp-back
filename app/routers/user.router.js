@@ -14,33 +14,72 @@ const router = Router();
 // CREATE
 router.post(
   '/signup',
+  /*  #swagger.tags = ['User']
+      #swagger.description = 'Endpoint pour s\'inscrire.' */
+
+  /*  #swagger.parameters['obj'] = {
+        in: 'body',
+        description: 'Information de l\'utilisateur.',
+         required: true,
+         schema: { $ref: "#/definitions/Adduser" }
+  } */
   validate('body', signupSchema),
   controllerWrapper(userController.signup),
 );
 
 // READ
-router.get('/', isMember, controllerWrapper(userController.getUser));
+router.get(
+  '/',
+  /*  #swagger.tags = ['User']
+      #swagger.description = 'Endpoint pour récupérer l\'utilisateur.' */
+
+  /* #swagger.security = [{
+            "bearerAuth": []
+    }] */
+  isMember,
+  controllerWrapper(userController.getUser),
+);
 
 // UPDATE
-router.patch('/', isMember, controllerWrapper(userController.updateUserInfos));
+router.patch(
+  '/',
+  /*  #swagger.tags = ['User']
+      #swagger.description = 'Endpoint pour modifier l\'utilisateur.' */
+  isMember,
+  controllerWrapper(userController.updateUserInfos),
+);
 
 // DELETE
-router.delete('/', isMember, controllerWrapper(userController.deleteUser));
+router.delete(
+  '/',
+  /*  #swagger.tags = ['User']
+      #swagger.description = 'Endpoint pour supprimer l\'utilisateur.' */
+  isMember,
+  controllerWrapper(userController.deleteUser),
+);
 
 router.post(
   '/signin',
+  /*  #swagger.tags = ['User']
+      #swagger.description = 'Endpoint pour se connecter.' */
   validate('body', signinSchema),
   controllerWrapper(userController.signin),
 );
 
 router.get(
   '/characters',
+  /*  #swagger.tags = ['User']
+      #swagger.description = 'Endpoint pour récupérer tous les personnages
+      débloqués de l\'utilisateur.' */
   isMember,
   controllerWrapper(userController.getAllUnlockedCharacters),
 );
 
 router.post(
   '/characters/:characterId',
+  /*  #swagger.tags = ['User']
+      #swagger.description = 'Endpoint pour débloquer un nouveau personnage pour
+      l\'utilisateur.' */
   isMember,
   controllerWrapper(userController.unlockCharacter),
 );

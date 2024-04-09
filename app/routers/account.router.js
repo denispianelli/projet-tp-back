@@ -17,6 +17,8 @@ const router = Router();
 // Mettre à jour l'email
 router.patch(
   '/email',
+  /*  #swagger.tags = ['Account']
+      #swagger.description = 'Endpoint pour mettre à jour son adresse email.' */
   isMember,
   controllerWrapper(accountController.updateEmail),
 );
@@ -24,6 +26,8 @@ router.patch(
 // Mettre à jour le mot de passe
 router.patch(
   '/password',
+  /*  #swagger.tags = ['Account']
+      #swagger.description = 'Endpoint pour mettre à jour mot de passe.' */
   isMember,
   controllerWrapper(accountController.updatePassword),
 );
@@ -31,12 +35,17 @@ router.patch(
 // Vérifier l'email
 router.get(
   '/email/verifyemail',
+  /*  #swagger.tags = ['Account']
+      #swagger.description = 'Endpoint pour vérifier son adresse email.' */
   controllerWrapper(accountController.verifyEmail),
 );
 
 // Envoyer un email de réinitialisation du mot de passe
 router.post(
   '/reset/password',
+  /*  #swagger.tags = ['Account']
+      #swagger.description = 'Endpoint pour faire une demande de
+      réinitialisation de mot de passe.' */
   validate('body', requestPasswordResetSchema),
   controllerWrapper(accountController.requestResetPassword),
 );
@@ -44,6 +53,8 @@ router.post(
 // Réinitialiser le mot de passe
 router.patch(
   '/reset/password',
+  /*  #swagger.tags = ['Account']
+      #swagger.description = 'Endpoint pour réinitialiser son mot de pase.' */
   validate('body', resetPasswordSchema),
   controllerWrapper(accountController.resetPassword),
 );

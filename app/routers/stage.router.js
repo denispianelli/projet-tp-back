@@ -9,18 +9,43 @@ import stageController from '../controllers/stage.controller.js';
 const router = Router();
 
 // CREATE
-router.post('/', controllerWrapper(stageController.createStage));
+router.post(
+  '/',
+  /*  #swagger.tags = ['Stage']
+      #swagger.description = 'Endpoint pour créer un niveau.' */
+  controllerWrapper(stageController.createStage),
+);
 
 // READ ALL
-router.get('/', controllerWrapper(stageController.getAllStages));
+router.get(
+  '/',
+  /*  #swagger.tags = ['Stage']
+      #swagger.description = 'Endpoint pour récupérer tous les niveaux.' */
+  controllerWrapper(stageController.getAllStages),
+);
 
 // READ ONE
-router.get('/:id', controllerWrapper(stageController.getStageById));
+router.get(
+  '/:id',
+  /*  #swagger.tags = ['Stage']
+      #swagger.description = 'Endpoint pour récupérer un niveau.' */
+  controllerWrapper(stageController.getStageById),
+);
 
 // UPDATE
-router.patch('/:id', controllerWrapper(stageController.updateStage));
+router.patch(
+  '/:id',
+  /*  #swagger.tags = ['Stage']
+      #swagger.description = 'Endpoint pour mettre à jour un niveau.' */
+  controllerWrapper(stageController.updateStage),
+);
 
 // DELETE
-router.delete('/:id', controllerWrapper(stageController.deleteStage));
+router.delete(
+  '/:id',
+  /*  #swagger.tags = ['Stage']
+      #swagger.description = 'Endpoint pour supprimer un niveau.' */
+  controllerWrapper(stageController.deleteStage),
+);
 
 export default router;

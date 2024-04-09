@@ -35,7 +35,9 @@ L'API démarrera et écoutera les requêtes sur le port spécifié dans les vari
 
 ## Documentation
 
-Pour plus d'informations sur les endpoints disponibles, les paramètres acceptés et les réponses renvoyées par l'API, veuillez consulter la documentation complète dans le dossier `docs`.
+Pour plus d'informations sur les endpoints disponibles, les paramètres acceptés
+et les réponses renvoyées par l'API, veuillez consulter la [documentation
+complète](http://localhost:3001/v1/api-doc).
 
 ## Contribution
 

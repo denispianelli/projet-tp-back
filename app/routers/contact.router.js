@@ -12,6 +12,8 @@ const router = Router();
 
 router.post(
   '/',
+  /*  #swagger.tags = ['Contact']
+      #swagger.description = 'Endpoint pour envoyer un email de contact.' */
   validate('body', contactSchema),
   controllerWrapper(contactController.sendMailContact),
 );

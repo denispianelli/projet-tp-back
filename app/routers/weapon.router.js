@@ -9,18 +9,43 @@ import weaponController from '../controllers/weapon.controller.js';
 const router = Router();
 
 // CREATE
-router.post('/', controllerWrapper(weaponController.createWeapon));
+router.post(
+  '/',
+  /*  #swagger.tags = ['Weapon']
+      #swagger.description = 'Endpoint pour créer une arme.' */
+  controllerWrapper(weaponController.createWeapon),
+);
 
 // READ ALL
-router.get('/', controllerWrapper(weaponController.getAllWeapons));
+router.get(
+  '/',
+  /*  #swagger.tags = ['Weapon']
+      #swagger.description = 'Endpoint pour récupérer toutes les armes.' */
+  controllerWrapper(weaponController.getAllWeapons),
+);
 
 // READ ONE
-router.get('/:id', controllerWrapper(weaponController.getWeaponById));
+router.get(
+  '/:id',
+  /*  #swagger.tags = ['Weapon']
+      #swagger.description = 'Endpoint pour récupérer une arme.' */
+  controllerWrapper(weaponController.getWeaponById),
+);
 
 // UPDATE
-router.patch('/:id', controllerWrapper(weaponController.updateWeapon));
+router.patch(
+  '/:id',
+  /*  #swagger.tags = ['Weapon']
+      #swagger.description = 'Endpoint pour mettre à jour une arme.' */
+  controllerWrapper(weaponController.updateWeapon),
+);
 
 // DELETE
-router.delete('/:id', controllerWrapper(weaponController.deleteWeapon));
+router.delete(
+  '/:id',
+  /*  #swagger.tags = ['Weapon']
+      #swagger.description = 'Endpoint pour supprimer une arme.' */
+  controllerWrapper(weaponController.deleteWeapon),
+);
 
 export default router;
